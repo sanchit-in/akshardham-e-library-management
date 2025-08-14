@@ -1,7 +1,5 @@
 # 📚 Akshardham E-Library Management
 
-# 📚 Akshardham E-Library Management
-
 **Live Demo:** [View Project on Render](https://akshardham-library.onrender.com)
 
 A complete **Flask-based e-library management system** that allows administrators to manage books and sections, handle user requests, and view library statistics.  
