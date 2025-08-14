@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: rgb(226, 228, 229);
+    }
+
+    .navbar {
+      background-color: rgb(226, 228, 229);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">User details</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarSupportedContent"
+      >
+        
+      </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+         
+         
+        
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('admin_dashboard')}}">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-3">
+    <h3 style="color: black;">User Info</h3>
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>SNo.</th>
+          <th>User Name</th>        
+          <th>Book Issued</th>
+          <th>Revoke</th>
+          
+        </tr>
+      </thead>
+    
+      
+      {% for reader in readers %}
+      <tbody>
+          {% if reader.books_issued|length > 0 %}
+
+          
+          <tr>
+              <th rowspan="{{ reader.books_issued|length }}" scope="row">{{loop.index}}</th>
+              <td rowspan="{{ reader.books_issued|length }}">{{reader.username}}</td>
+             
+             
+              {% for book in reader.books_issued %}
+              <td>
+                  <div class="revoke">
+                    {{book.name}}
+                  </div>
+                </td>
+                <td>
+                    <form action="{{url_for('revoke',book_id=book.id,reader_id=reader.id)}}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger revoke-btn">Revoke</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{reader.username}}</td>
+             
+                
+                <td></td>
+                <td></td>
+            </tr>
+            {% endif %}
+          </tbody>
+          {% endfor %}
+      </table>
+  </div>
+    
+  
+   
+    </table>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

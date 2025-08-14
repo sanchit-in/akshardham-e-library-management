@@ -1,0 +1,408 @@
+<!-- admin side -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: rgb(226, 228, 229);
+      }
+      .navbar {
+        background-color: rgb(226, 228, 229);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .card {
+        width: 14rem;
+        height: 450px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .dropdown-toggle,
+      .btn-books {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+        top: calc(50%-20px);
+      }
+      .placeholder {
+        height: 200px;
+        background-color: white;
+      }
+
+     
+      .search-bar button[type="submit"] {
+        padding: 5px 5px;
+        width: 40px;
+        height: 40px;
+        background: url("/static/covers/search.png") no-repeat center;
+        background-size: contain;
+        border: none;
+        cursor: pointer;
+      }
+      div .search-bar {
+        color: #212529;
+        height:40px;
+        width:700px;
+        
+      }
+      input.form-control.me-2 {
+        border-radius: 20px;
+        width: 450px;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg ">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin's Books</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="search-bar">
+          <div class="container-fluid mt-6">
+              <div class="row">
+                  <div class="col-md-12">
+                      <form action="" method="GET">
+                          <div class="input-group">
+                              <select name="parameter" id="parameter" class="form-control"> 
+                                  <option value="Title">Title</option> 
+                                  <option value="Author">Author</option>
+                              </select>
+                              <input type="text" name="query" class="form-control" placeholder="Search for author or book">
+                              <span class="input-group-btn">
+                                  <button class="primary" type="submit"></button> 
+                              </span>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#addBookModal"
+                >Add Book </a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('admin_dashboard')}}">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+<h3 style="text-align: center; font-weight:bold; font-size:40px;">Books</h3>
+<br>
+    <div
+      class="modal fade"
+      id="addBookModal"
+      tabindex="-1"
+      aria-labelledby="addBookModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBookModalLabel">Add Books</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+           
+            <form
+              method="post"
+              action="{{url_for('add_book' , section_id = section.id if section else None)}}"
+            >
+            <form
+  method="post"
+  action="{{url_for('add_book' , section_id = section.id if section else None)}}"
+>
+              <div class="mb-3">
+                <label for="bookTitle" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookTitle"
+                  placeholder="Enter title"
+                  name="name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="bookImage" class="form-label">Image URL</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookImage"
+                  placeholder="Enter image URL"
+                  name="image"
+                />
+              </div>
+              
+              <div class="mb-3">
+                <label for="bookauthor" class="form-label">Author</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookauthor"
+                  placeholder="Enter author"
+                  name="author"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="file" class="form-label">File</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="file"
+                  placeholder="enter file"
+                  name="file"
+                />
+                <div class="modal-footer">
+                  
+                  <button type="submit" class="btn btn-dark">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-3">
+      <div class="row row-cols-4">
+        {% for book in books %}
+        <div class="col">
+          <div class="card">
+            {% if book.image %}
+            <img
+              src="{{ book.image }}"
+              class="card-img-top"
+              alt="..."
+              style="height:320px;"
+            />
+            {% else %}
+            <div class="placeholder"></div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+           
+              <h5 class="card-title">{{ book.name}}</h5>
+              <p>{{book.author}}</p>
+             
+              <div class="d-flex justify-content-between mt-auto">
+                <!-- Book Button -->
+                <a href="{{url_for('view_pdf',id=book.id)}}" class="btn btn-dark btn-sm btn-books">Open Book</a>
+                <!-- Three-dot Toggle Menu -->
+                <div class="dropdown">
+                  <button
+                    class="btn btn-dark dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                 
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editModal{{ loop.index }}"
+                      >
+                        Edit
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmationModal{{ loop.index }}"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="confirmationModal{{ loop.index }}"
+          tabindex="-1"
+          aria-labelledby="confirmationModalLabel{{ loop.index }}"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                  class="modal-title"
+                  id="confirmationModalLabel{{ loop.index }}"
+                >
+                  Confirmation!
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <!-- Deletion Form -->
+                <h5>Are you sure you want to delete this section?</h5>
+                <p>(All your books will also be deleted!)</p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <form
+                  action="{{ url_for('remove_book', id=book.id) }}"
+                  method="post"
+                >
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- edit modal -->
+        <div
+          class="modal fade"
+          id="editModal{{ loop.index }}"
+          tabindex="-1"
+          aria-labelledby="editModalLabel{{ loop.index }}"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel{{ loop.index }}">
+                  Edit Book
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <!-- Edit Form -->
+                <form
+                  method="post"
+                  action="{{ url_for('edit_book', id=book.id) }}"
+                >
+                  <div class="mb-3">
+                    <label for="editName{{ loop.index }}" class="form-label"
+                      >Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editName{{ loop.index }}"
+                      name="name"
+                      value="{{ book.name }}"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editauthor{{ loop.index }}" class="form-label"
+                      >author</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editauthor{{ loop.index }}"
+                      name="author"
+                      value="{{ book.author }}"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="editImage{{ loop.index }}" class="form-label"
+                      >Image URL</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editImage{{ loop.index }}"
+                      name="image"
+                      value="{{ book.image }}"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editfile{{ loop.index }}" class="form-label"
+                      >file</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editfile{{ loop.index }}"
+                      name="file"
+                      value="{{ book.file }}"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-dark">
+                    Save Changes
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    
+  </body>
+</html>
