@@ -1,0 +1,27 @@
+
+---
+
+## **.gitignore**
+In the dropdown, select **Python**.  
+This will ignore:
+- `venv/`
+- `__pycache__/`
+- `.pyc` files
+
+---
+
+## **License**
+If you want others to freely use your project → choose **MIT License**.  
+If you want it private and restricted → choose "No license".
+
+---
+
+Once you create the repo:
+1. Copy the `git remote add origin ...` command GitHub gives you.
+2. Run it in your `PROJECT 1` terminal.
+3. Push with:
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git push -u origin main
